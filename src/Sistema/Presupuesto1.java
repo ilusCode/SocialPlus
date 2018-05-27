@@ -50,6 +50,8 @@ public class Presupuesto1 extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         productos = new javax.swing.JTextArea();
         btnBuscador = new javax.swing.JButton();
+        cantidadtext = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
         nomtext1 = new javax.swing.JTextField();
         Folio = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -93,8 +95,6 @@ public class Presupuesto1 extends javax.swing.JFrame {
         Generar = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
         nomtext3 = new javax.swing.JTextField();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
 
         nomtext2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
@@ -111,7 +111,7 @@ public class Presupuesto1 extends javax.swing.JFrame {
         productos.setRows(5);
         jScrollPane5.setViewportView(productos);
 
-        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 610, 100));
+        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 610, 100));
 
         btnBuscador.setText("Buscar");
         btnBuscador.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +119,19 @@ public class Presupuesto1 extends javax.swing.JFrame {
                 btnBuscadorActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, 110, 30));
+        getContentPane().add(btnBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 320, 110, 30));
+
+        cantidadtext.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cantidadtext.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cantidadtextKeyPressed(evt);
+            }
+        });
+        getContentPane().add(cantidadtext, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 110, 30));
+
+        jLabel18.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel18.setText("Buscar:");
+        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, -1, 30));
 
         nomtext1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         getContentPane().add(nomtext1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 250, 30));
@@ -171,8 +183,8 @@ public class Presupuesto1 extends javax.swing.JFrame {
         getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, -1, 30));
 
         jLabel15.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jLabel15.setText("Buscar:");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, 30));
+        jLabel15.setText("Cantidad:");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, -1, 30));
 
         cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8_Multiply_32px.png"))); // NOI18N
         cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -228,15 +240,15 @@ public class Presupuesto1 extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("Desc. $");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 60, 30));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 510, 60, 30));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText("Total $");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 500, -1, 30));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 550, -1, 30));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("CANTIDAD CON LETRA");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 530, -1, 30));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 580, -1, 30));
 
         jLabel17.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel17.setText("Cliente:");
@@ -248,7 +260,7 @@ public class Presupuesto1 extends javax.swing.JFrame {
                 buscatextKeyPressed(evt);
             }
         });
-        getContentPane().add(buscatext, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 250, 30));
+        getContentPane().add(buscatext, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, 230, 30));
 
         dirtext.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         dirtext.addActionListener(new java.awt.event.ActionListener() {
@@ -273,7 +285,7 @@ public class Presupuesto1 extends javax.swing.JFrame {
         getContentPane().add(teltext, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 180, 90, 30));
 
         subtotal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        getContentPane().add(subtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 130, 30));
+        getContentPane().add(subtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 470, 130, 30));
 
         desc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         desc.addActionListener(new java.awt.event.ActionListener() {
@@ -281,10 +293,10 @@ public class Presupuesto1 extends javax.swing.JFrame {
                 descActionPerformed(evt);
             }
         });
-        getContentPane().add(desc, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 460, 130, 30));
+        getContentPane().add(desc, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 510, 130, 30));
 
         deposito.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        getContentPane().add(deposito, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 560, 330, 30));
+        getContentPane().add(deposito, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 610, 330, 30));
 
         total.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         total.addActionListener(new java.awt.event.ActionListener() {
@@ -292,7 +304,7 @@ public class Presupuesto1 extends javax.swing.JFrame {
                 totalActionPerformed(evt);
             }
         });
-        getContentPane().add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 500, 130, 30));
+        getContentPane().add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 550, 130, 30));
 
         Mensaje.setColumns(20);
         Mensaje.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -300,7 +312,7 @@ public class Presupuesto1 extends javax.swing.JFrame {
         Mensaje.setText("Observaciones: Debido al tipo de mobiliario, loza, manteleria, \nequipo y utensilios es necesario recibir en garantía, un depósito \nen efectivo, que sufrague parte del valor económico del mobiliario\n el cual será reembolsado a la entrega del mobiliario proporcionado\n y en caso de tener algún daño, este será pagado en su totalidad al \n100% ");
         jScrollPane2.setViewportView(Mensaje);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 400, 110));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 400, 110));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -318,15 +330,15 @@ public class Presupuesto1 extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 610, 100));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 610, 100));
 
         jLabel16.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel16.setText("Depósito $");
-        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, -1, 30));
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, -1, 30));
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText("Subtotal $");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, -1, 30));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 470, -1, 30));
 
         regresar.setText("Regresar");
         regresar.addActionListener(new java.awt.event.ActionListener() {
@@ -334,7 +346,7 @@ public class Presupuesto1 extends javax.swing.JFrame {
                 regresarActionPerformed(evt);
             }
         });
-        getContentPane().add(regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 630, -1, 30));
+        getContentPane().add(regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 680, -1, 30));
 
         Generar.setText("Generar");
         Generar.addActionListener(new java.awt.event.ActionListener() {
@@ -342,20 +354,14 @@ public class Presupuesto1 extends javax.swing.JFrame {
                 GenerarActionPerformed(evt);
             }
         });
-        getContentPane().add(Generar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 630, -1, 30));
+        getContentPane().add(Generar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 680, -1, 30));
 
         fondo.setBackground(new java.awt.Color(255, 255, 255));
         fondo.setOpaque(true);
-        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 700));
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 630, 790));
 
         nomtext3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         getContentPane().add(nomtext3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 250, 30));
-
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane4.setViewportView(jTextArea2);
-
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -366,7 +372,7 @@ public class Presupuesto1 extends javax.swing.JFrame {
         int result = JOptionPane.showConfirmDialog(null, "Estas seguro de salir", "Saliendo del Sistema", dialog);
         if (result == 0) {
             dispose();
-
+            
         }
     }//GEN-LAST:event_cerrarMouseClicked
 
@@ -425,42 +431,40 @@ public class Presupuesto1 extends javax.swing.JFrame {
     static String provedor;
     static int con = 0;
     private void btnBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscadorActionPerformed
-
+        
         try {
             String descripcion = buscatext.getText();
             System.out.println(descripcion);
             //SELECT idMob FROM Mobiliario WHERE descrip=descripcion;
 
             Connection conexion;
-
+            
             Class.forName("com.mysql.jdbc.Driver");
             conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebas?zeroDateTimeBehavior=convertToNull", "root", "");
             PreparedStatement consulta;
             consulta = conexion.prepareStatement("SELECT * FROM Mobiliario WHERE descrip='" + descripcion + "'");
             System.out.println(consulta);
             ResultSet resultado = consulta.executeQuery();
-
+            
             while (resultado.next()) {
-                idMob = resultado.getInt("idMob");
                 descrip = resultado.getString("descrip");
-                precio = resultado.getFloat("precio");
                 p_unitario = resultado.getInt("p_unitario");
                 nexistencia = resultado.getInt("nexistencia");
                 provedor = resultado.getString("provedor");
                 System.out.println(idMob + "  /   " + descrip + "  / " + precio + "   /   " + p_unitario + "  /   " + nexistencia + " /   " + provedor);
             }
-
-            list.add(idMob);
+            float importe = p_unitario * Integer.parseInt(cantidadtext.getText());
             list.add(descrip);
-            list.add(precio);
             list.add(p_unitario);
-            list.add(nexistencia);
-            list.add(provedor);
+            list.add(importe);
             datos.add(list);
+            
+            subtotal.setText(String.valueOf(importe));
+            total.setText(String.valueOf(importe));
             productos.setText(" ");
-
             for (ArrayList<Object> r : datos) {
                 for (int i = 0; i < r.size(); i++) {
+                    importe=importe+importe;
                     productos.append(r.get(i) + "\t");
                 }
                 productos.append("\n");
@@ -480,6 +484,10 @@ public class Presupuesto1 extends javax.swing.JFrame {
 //        list.add("Provedor");
 
     }//GEN-LAST:event_formWindowOpened
+
+    private void cantidadtextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadtextKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cantidadtextKeyPressed
     ArrayList<ArrayList<Object>> datos = new ArrayList<ArrayList<Object>>();
     ArrayList<Object> list = new ArrayList<Object>();
 
@@ -524,6 +532,7 @@ public class Presupuesto1 extends javax.swing.JFrame {
     private javax.swing.JTextArea Mensaje;
     private javax.swing.JButton btnBuscador;
     private javax.swing.JTextField buscatext;
+    private javax.swing.JTextField cantidadtext;
     private javax.swing.JLabel cerrar;
     private javax.swing.JTextField ciutext;
     private javax.swing.JTextField cptext;
@@ -544,6 +553,7 @@ public class Presupuesto1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -553,10 +563,8 @@ public class Presupuesto1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JLabel minimizar;
     private javax.swing.JTextField nomtext1;
     private javax.swing.JTextField nomtext2;
