@@ -23,12 +23,13 @@ public class jj extends javax.swing.JFrame {
     ArrayList<ArrayList<Object>> datos = new ArrayList<ArrayList<Object>>();
     String cantidad;
     String descripcion;
+
     /**
      * Creates new form jj
      */
     public jj() {
         initComponents();
-        
+
     }
 
     /**
@@ -45,6 +46,8 @@ public class jj extends javax.swing.JFrame {
         dos = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,22 +66,29 @@ public class jj extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane2.setViewportView(jTextArea2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(uno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(uno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,34 +98,67 @@ public class jj extends javax.swing.JFrame {
                     .addComponent(uno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            cantidad=uno.getText();
-            descripcion=dos.getText();
-            ArrayList<Object> row = new ArrayList<Object>();
-            row.add(cantidad);
-            row.add(descripcion);
-            datos.add(row);
+    static String descrip;
+    static float precio;
+    static int p_unitario;
+    static int nexistencia;
+    static String provedor;
+public void con(String val) {
+        try {
+            Connection conexion;
             
-            jTextArea1.setText(" ");
-            for (ArrayList<Object> r:datos)
-            {
-                for (int i = 0; i < r.size(); i++) {
-                    jTextArea1.append(r.get(i)+"\t");
-                }
-                jTextArea1.append("\n");
-                System.out.println("Insert into cliente values ");
+            Class.forName("com.mysql.jdbc.Driver");
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebas?zeroDateTimeBehavior=convertToNull", "root", "");
+            PreparedStatement consulta;
+            consulta = conexion.prepareStatement("SELECT * FROM Mobiliario WHERE descrip='" + val + "'");
+            System.out.println(consulta);
+            ResultSet resultado = consulta.executeQuery();
+            
+            while (resultado.next()) {
+                descrip = resultado.getString("descrip");
+                p_unitario = resultado.getInt("p_unitario");
+                nexistencia = resultado.getInt("nexistencia");
+                provedor = resultado.getString("provedor");
+                System.out.println(descrip + "  / " + precio + "   /   " + p_unitario + "  /   " + nexistencia + " /   " + provedor);
             }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(jj.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        cantidad = uno.getText();
+        descripcion = dos.getText();
+        
+        ArrayList<Object> row = new ArrayList<Object>();
+        
+        con(descripcion);
+        row.add(descrip);
+        row.add(p_unitario);
+        row.add(nexistencia);
+        row.add(provedor);
+        datos.add(row);
+        jTextArea1.setText(" ");
+        for (ArrayList<Object> r : datos) {
+            for (int i = 0; i < r.size(); i++) {
+                jTextArea1.append(r.get(i) + "\t");
+            }
+            jTextArea1.append("\n");
+           
+            System.out.println("Insert into cliente values ");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
@@ -156,7 +199,9 @@ public class jj extends javax.swing.JFrame {
     private javax.swing.JTextField dos;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField uno;
     // End of variables declaration//GEN-END:variables
 }

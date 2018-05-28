@@ -5,6 +5,7 @@
  */
 package Sistema;
 
+import Datos.jj;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -47,7 +48,7 @@ public class Presupuesto1 extends javax.swing.JFrame {
 
         opciones = new javax.swing.ButtonGroup();
         nomtext2 = new javax.swing.JTextField();
-        jScrollPane5 = new javax.swing.JScrollPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
         productos = new javax.swing.JTextArea();
         btnBuscador = new javax.swing.JButton();
         cantidadtext = new javax.swing.JTextField();
@@ -107,11 +108,13 @@ public class Presupuesto1 extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        productos.setColumns(0);
+        productos.setEditable(false);
+        productos.setColumns(20);
         productos.setRows(5);
-        jScrollPane5.setViewportView(productos);
+        productos.setEnabled(false);
+        jScrollPane3.setViewportView(productos);
 
-        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 610, 100));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 610, 100));
 
         btnBuscador.setText("Buscar");
         btnBuscador.addActionListener(new java.awt.event.ActionListener() {
@@ -372,7 +375,7 @@ public class Presupuesto1 extends javax.swing.JFrame {
         int result = JOptionPane.showConfirmDialog(null, "Estas seguro de salir", "Saliendo del Sistema", dialog);
         if (result == 0) {
             dispose();
-            
+
         }
     }//GEN-LAST:event_cerrarMouseClicked
 
@@ -430,66 +433,69 @@ public class Presupuesto1 extends javax.swing.JFrame {
     static int nexistencia;
     static String provedor;
     static int con = 0;
-    private void btnBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscadorActionPerformed
-        
-        try {
-            String descripcion = buscatext.getText();
-            System.out.println(descripcion);
-            //SELECT idMob FROM Mobiliario WHERE descrip=descripcion;
+    ArrayList<ArrayList<Object>> datos = new ArrayList<ArrayList<Object>>();
 
+    public void con(String val) {
+        try {
             Connection conexion;
-            
+
             Class.forName("com.mysql.jdbc.Driver");
             conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebas?zeroDateTimeBehavior=convertToNull", "root", "");
             PreparedStatement consulta;
-            consulta = conexion.prepareStatement("SELECT * FROM Mobiliario WHERE descrip='" + descripcion + "'");
+            consulta = conexion.prepareStatement("SELECT * FROM Mobiliario WHERE descrip='" + val + "'");
             System.out.println(consulta);
             ResultSet resultado = consulta.executeQuery();
-            
+
             while (resultado.next()) {
                 descrip = resultado.getString("descrip");
                 p_unitario = resultado.getInt("p_unitario");
                 nexistencia = resultado.getInt("nexistencia");
                 provedor = resultado.getString("provedor");
-                System.out.println(idMob + "  /   " + descrip + "  / " + precio + "   /   " + p_unitario + "  /   " + nexistencia + " /   " + provedor);
-            }
-            float importe = p_unitario * Integer.parseInt(cantidadtext.getText());
-            list.add(descrip);
-            list.add(p_unitario);
-            list.add(importe);
-            datos.add(list);
-            
-            subtotal.setText(String.valueOf(importe));
-            total.setText(String.valueOf(importe));
-            productos.setText(" ");
-            for (ArrayList<Object> r : datos) {
-                for (int i = 0; i < r.size(); i++) {
-                    importe=importe+importe;
-                    productos.append(r.get(i) + "\t");
-                }
-                productos.append("\n");
+                System.out.println(descrip + "  / " + precio + "   /   " + p_unitario + "  /   " + nexistencia + " /   " + provedor);
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Error: " + ex);
+            Logger.getLogger(jj.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+
+    private void btnBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscadorActionPerformed
+        ArrayList<Object> row = new ArrayList<Object>();
+
+        String descripcion = buscatext.getText();
+        System.out.println(descripcion);
+        //SELECT idMob FROM Mobiliario WHERE descrip=descripcion;
+        con(descripcion);
+        row.add(descrip);
+        row.add(p_unitario);
+        String can = cantidadtext.getText();
+        row.add(can);
+
+        int importe = Integer.parseInt(can) * p_unitario;
+        System.out.println(importe);
+        row.add(String.valueOf(importe));
+        datos.add(row);
+        productos.setText("");
+        for (ArrayList<Object> r : datos) {
+            for (int i = 0; i < r.size(); i++) {
+                productos.append(r.get(i) + "\t");
+            }
+            productos.append("\n");
+            System.out.println("");
+
+        }
+        //subtotal.setText(String.valueOf(importe));
+        //total.setText(String.valueOf(importe));
+      
 
     }//GEN-LAST:event_btnBuscadorActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-//        list.add("Id");
-//        list.add("Descripcion");
-//        list.add("Precio");
-//        list.add("Precion Unitario");
-//        list.add("Existencias");
-//        list.add("Provedor");
-
     }//GEN-LAST:event_formWindowOpened
 
     private void cantidadtextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadtextKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_cantidadtextKeyPressed
-    ArrayList<ArrayList<Object>> datos = new ArrayList<ArrayList<Object>>();
-    ArrayList<Object> list = new ArrayList<Object>();
 
     /**
      * @param args the command line arguments
@@ -563,7 +569,7 @@ public class Presupuesto1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel minimizar;
     private javax.swing.JTextField nomtext1;
